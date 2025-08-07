@@ -1,0 +1,17 @@
+version: "3"
+name: postgres-ai
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: postgres-ai:v1
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+      - ./activate-extension.sql:/docker-entrypoint-initdb.d/0-activate_extension.sql
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=vectordb
